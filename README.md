@@ -16,7 +16,7 @@ This project toolkit will provide you with a set of code and libraries so that e
 
  ## Frontend
 
- - [JavaScript](link)
+ - [JavaScript](front/js)
  
  ## Backend
  
