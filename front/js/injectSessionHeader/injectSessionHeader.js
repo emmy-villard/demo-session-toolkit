@@ -1,4 +1,4 @@
-import { getUniqueSessionId } from "./getUniqueSessionId.js"
+import { getUniqueSessionId } from "./getUniqueSessionId"
 
 /**
  * Adds (or overwrites) the 'X-Session-Id' header on the given request.
@@ -10,7 +10,7 @@ import { getUniqueSessionId } from "./getUniqueSessionId.js"
  * @param {Request} request - The request object to mutate.
  * @returns {Request} - The same request instance, with the session id header set.
  */
-export function addSessionIdHeader(request) {
+export function injectSessionHeader(request) {
   const headers = request.headers
   const header_name = 'X-Session-Id'
   if(headers.has(header_name)) {

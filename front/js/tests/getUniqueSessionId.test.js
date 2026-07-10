@@ -1,31 +1,31 @@
 import { expect, test, vi, beforeAll, beforeEach, afterEach } from 'vitest'
-import { getUniqueSessionId } from './getUniqueSessionId.js'
+import { getUniqueSessionId } from '../injectSessionHeader/getUniqueSessionId.js'
 
 const uniqueSessionIdKey = 'uniqueSessionId'
-let originalLocalStorage;
+let originalLocalStorage
 
 beforeEach(() => {
-  originalLocalStorage = window.localStorage;
+  originalLocalStorage = window.localStorage
   window.localStorage = {
     store: {},
     getItem(key) {
-      return this.store[key] ?? null;
+      return this.store[key] ?? null
     },
     setItem(key, value) {
-      this.store[key] = value;
+      this.store[key] = value
     },
     removeItem(key) {
-      delete this.store[key];
+      delete this.store[key]
     },
     clear() {
-      this.store = {};
+      this.store = {}
     },
-  };
-});
+  }
+})
 
 afterEach(() => {
-  window.localStorage = originalLocalStorage;
-});
+  window.localStorage = originalLocalStorage
+})
 
 test('use jsdom in this test file', () => {
   const element = document.createElement('div')
@@ -34,17 +34,17 @@ test('use jsdom in this test file', () => {
 
 test('testing my mocked localStorage', () => {
   window.localStorage.setItem('key', 3)
-  expect(window.localStorage.getItem('key')).toBe(3);
+  expect(window.localStorage.getItem('key')).toBe(3)
 })
 
 test('create, store and get random session id', () => {
   const sessionId = getUniqueSessionId()
-  expect(window.localStorage.getItem(uniqueSessionIdKey)).toBe(sessionId);
+  expect(window.localStorage.getItem(uniqueSessionIdKey)).toBe(sessionId)
 })
 
 test('get existing session id', () => {
   const originalSessionId = 'BÉPO13'
   localStorage.setItem(uniqueSessionIdKey, originalSessionId)
   const sessionId = getUniqueSessionId()
-  expect(window.localStorage.getItem(uniqueSessionIdKey)).toBe(sessionId);
+  expect(window.localStorage.getItem(uniqueSessionIdKey)).toBe(sessionId)
 })

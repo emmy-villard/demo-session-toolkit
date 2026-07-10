@@ -1,11 +1,46 @@
 {
+  "name": "demo-session-toolkit-js",
+  "version": "1.0.0",
+  "description": "Browser utilities to persist a unique session id and inject it into HTTP requests.",
+  "private": false,
+  "license": "MIT",
+  "author": "Emmy VILLARD",
+  "keywords": [
+    "session",
+    "frontend",
+    "js",
+    "fetch",
+    "headers",
+    "browser"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmy-villard/demo-session-toolkit.git",
+    "directory": "front/js"
+  },
+  "homepage": "https://github.com/emmy-villard/demo-session-toolkit/tree/main/front/js",
+  "bugs": {
+    "url": "https://github.com/emmy-villard/demo-session-toolkit/issues"
+  },
+  "type": "module",
+  "files": [
+    "injectSessionHeader",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./injectSessionHeader/index.js"
+  },
   "devDependencies": {
     "@vitest/coverage-v8": "^4.1.10",
     "jsdom": "^29.1.1",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "msw": "^2.15.0"
   },
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
   }
 }
