@@ -16,7 +16,7 @@ This project toolkit will provide you with a set of code and libraries so that e
 
  ## Frontend
 
- - [JavaScript](front/js)
+ - [JavaScript](link)
  
  ## Backend
  
@@ -25,3 +25,8 @@ This project toolkit will provide you with a set of code and libraries so that e
  ## RDBMS
 
  - [PostGreSQL](link)
+
+ ## Strategies
+ There are several ways to create and store a unique session ID. Here are the ones currently implemented:
+
+ - [Strat](link)
