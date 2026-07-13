@@ -1,32 +1,77 @@
-## Demo Session Toolkit
+***Status: WIP / under development***
 
-***Instantly isolate each visitor's session on your demo — no login required, no data collisions, no cleanup hassle.***
+# Demo Session Toolkit
 
-This project toolkit will provide you with a set of code and libraries so that every visitor can interact with an online demo of your web project, without their experience being disrupted by changes made by other visitors, and without needing to create an account to test your programme.
+Build online demos where every visitor gets an isolated session automatically.
 
-## Principle
+No sign-up flow, no shared-state conflicts, and no manual cleanup headaches.
 
-- The frontend must store a session ID locally for every new visitor. It will send this back in each of its backend requests via an "X-Session-ID" header.
+## Why this exists
 
--  The backend sends this session ID to the database, which then transparently filters each request to return only the data specific to that session.
+When multiple users test the same demo environment, they can overwrite each other's data.
+This toolkit isolates each user at the database level so everyone gets a clean, independent experience.
 
-- Finally, a cron job will periodically delete old entries from the database to save storage space.
+## How it works
 
- Each front and back section has specific instructions to follow. I’ve tried to keep things as simple as possible, but you’ll still need to make a few minor changes to your project’s code; simply importing it won’t be enough. But it shouldn’t be too much trouble.
+Session isolation is based on a unique `sessionId`:
 
- ## Frontend
+1. The frontend receives a session cookie.
+2. The backend writes data tagged with that `sessionId`.
+3. Read queries automatically return only records that match the current `sessionId`.
+4. A scheduled cleanup job deletes expired demo data.
 
- - [JavaScript](link)
- 
- ## Backend
- 
- - [Express / PostGreSQL](link)
+Result: each visitor can test your app safely without affecting others.
 
- ## RDBMS
+## What is handled automatically
 
- - [PostGreSQL](link)
+- Session isolation through cookies
+- Automatic write/read filtering by `sessionId`
+- Periodic cleanup of stale demo records
 
- ## Strategies
- There are several ways to create and store a unique session ID. Here are the ones currently implemented:
+## What you need to implement
 
- - [Strat](link)
+- Frontend
+    - Send requests with credentials enabled (cookies)
+- Backend (depends on [your stacks](#available-backends))
+    - Integrate the session filter middleware/mechanism
+    - Define first-visit behavior (for example: seed initial demo data)
+- Database
+    - Slightly adapt your table definitions to support session-scoped records (varies by RDBMS)
+
+## Available backends
+
+- [Express](link)
+
+## Supported RDBMS
+
+- [PostgreSQL](link)
+
+## [TODO] Recommended README media
+
+To make this project easier to understand at a glance, add visual assets:
+
+1. Architecture diagram (PNG/SVG)
+     - Show: Browser -> Backend -> Database, with `sessionId` flow.
+2. Quick demo GIF (10-20s)
+     - Show two browser windows creating data without collisions.
+
+Suggested structure in the repository:
+
+```text
+docs/
+    images/
+        architecture.png
+        before-after.png
+    gifs/
+        session-isolation-demo.gif
+```
+
+Then embed them in this README (update paths if needed):
+
+```markdown
+## Visual Overview
+
+![Architecture](docs/images/architecture.png)
+
+![Session Isolation Demo](docs/gifs/session-isolation-demo.gif)
+```
